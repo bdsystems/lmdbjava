@@ -23,7 +23,7 @@ rm -rf lmdb
 
 git clone https://github.com/LMDB/lmdb.git
 pushd lmdb
-git checkout f20e41de09d97e4461946b7e26ec831d0c24fac7
+git checkout e13f05211f8c0869fe1475cd632ba59d4f957656
 popd
 
 pushd lmdb/libraries/liblmdb
