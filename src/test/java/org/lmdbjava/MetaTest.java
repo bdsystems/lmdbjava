@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2025 The LmdbJava Open Source Project
+ * Copyright © 2016-2026 The LmdbJava Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,12 @@
  */
 package org.lmdbjava;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.lmdbjava.LmdbNativeException.PageCorruptedException.MDB_CORRUPTED;
 import static org.lmdbjava.Meta.error;
 import static org.lmdbjava.TestUtils.invokePrivateConstructor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.lmdbjava.Meta.Version;
 
 /** Test {@link Meta}. */
@@ -35,15 +32,15 @@ public final class MetaTest {
   }
 
   @Test
-  public void errCode() {
-    assertThat(error(MDB_CORRUPTED), is("MDB_CORRUPTED: Located page was wrong type"));
+  void errCode() {
+    assertThat(error(MDB_CORRUPTED)).isEqualTo("MDB_CORRUPTED: Located page was wrong type");
   }
 
   @Test
-  public void version() {
+  void version() {
     final Version v = Meta.version();
-    assertThat(v, not(nullValue()));
-    assertThat(v.major, is(0));
-    assertThat(v.minor, is(9));
+    assertThat(v).isNotNull();
+    assertThat(v.major).isEqualTo(0);
+    assertThat(v.minor).isEqualTo(9);
   }
 }

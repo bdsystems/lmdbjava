@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2025 The LmdbJava Open Source Project
+ * Copyright © 2016-2026 The LmdbJava Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,11 @@
  */
 package org.lmdbjava;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 /** Flags for use when opening the {@link Env}. */
-public enum EnvFlags implements MaskedFlag {
+public enum EnvFlags implements MaskedFlag, EnvFlagSet {
 
   /**
    * Mmap at a fixed address (experimental).
@@ -143,5 +146,30 @@ public enum EnvFlags implements MaskedFlag {
   @Override
   public int getMask() {
     return mask;
+  }
+
+  @Override
+  public Set<EnvFlags> getFlags() {
+    return EnumSet.of(this);
+  }
+
+  @Override
+  public boolean isSet(final EnvFlags flag) {
+    return this == flag;
+  }
+
+  @Override
+  public int size() {
+    return 1;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return FlagSet.asString(this);
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2025 The LmdbJava Open Source Project
+ * Copyright © 2016-2026 The LmdbJava Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,11 @@
  */
 package org.lmdbjava;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 /** Flags for use when performing a "put". */
-public enum PutFlags implements MaskedFlag {
+public enum PutFlags implements MaskedFlag, PutFlagSet {
 
   /** For put: Don't write if the key already exists. */
   MDB_NOOVERWRITE(0x10),
@@ -48,5 +51,30 @@ public enum PutFlags implements MaskedFlag {
   @Override
   public int getMask() {
     return mask;
+  }
+
+  @Override
+  public Set<PutFlags> getFlags() {
+    return EnumSet.of(this);
+  }
+
+  @Override
+  public boolean isSet(PutFlags flag) {
+    return this == flag;
+  }
+
+  @Override
+  public int size() {
+    return 1;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return FlagSet.asString(this);
   }
 }

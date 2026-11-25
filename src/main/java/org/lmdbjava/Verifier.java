@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2025 The LmdbJava Open Source Project
+ * Copyright © 2016-2026 The LmdbJava Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,7 +175,8 @@ public final class Verifier implements Callable<Long> {
 
   private void deleteDbis() {
     for (final byte[] existingDbiName : env.getDbiNames()) {
-      final Dbi<ByteBuffer> existingDbi = env.openDbi(existingDbiName);
+      final Dbi<ByteBuffer> existingDbi =
+          env.createDbi().setDbName(existingDbiName).withDefaultComparator().open();
       try (Txn<ByteBuffer> txn = env.txnWrite()) {
         existingDbi.drop(txn, true);
         txn.commit();
